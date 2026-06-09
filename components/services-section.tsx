@@ -22,7 +22,7 @@ const services = [
     title: "Desain Logo",
     description: "Logo profesional yang mencerminkan identitas brand Anda",
     features: ["3 Konsep Desain", "Revisi Unlimited", "File Format Lengkap", "Source File"],
-    price: "Mulai Rp 150.000",
+    price: "Mulai Rp 30.000",
   },
   {
     id: "grafis",
@@ -30,7 +30,7 @@ const services = [
     title: "Desain Grafis",
     description: "Desain visual menarik untuk berbagai kebutuhan bisnis",
     features: ["Brosur & Flyer", "Poster", "Kartu Nama", "Undangan"],
-    price: "Mulai Rp 50.000",
+    price: "Mulai Rp 15.000",
   },
   {
     id: "stiker",
@@ -38,7 +38,7 @@ const services = [
     title: "Desain Stiker",
     description: "Stiker kreatif untuk produk dan branding Anda",
     features: ["Stiker Produk", "Stiker Label", "Stiker Custom", "Die Cut Design"],
-    price: "Mulai Rp 30.000",
+    price: "Mulai Rp 10.000",
   },
   {
     id: "spanduk",
@@ -46,7 +46,7 @@ const services = [
     title: "Desain Spanduk",
     description: "Spanduk dan banner yang eye-catching untuk promosi",
     features: ["Banner Digital", "Spanduk Cetak", "Roll Banner", "Backdrop"],
-    price: "Mulai Rp 50.000",
+    price: "Mulai Rp 20.000",
   },
   {
     id: "foto",
@@ -54,7 +54,7 @@ const services = [
     title: "Edit Foto",
     description: "Editing foto profesional untuk hasil yang sempurna",
     features: ["Retouch Wajah", "Background Remove", "Color Correction", "Manipulasi Foto"],
-    price: "Mulai Rp 15.000",
+    price: "Mulai Rp 7.000",
   },
   {
     id: "video",
@@ -62,7 +62,7 @@ const services = [
     title: "Edit Video",
     description: "Editing video berkualitas untuk konten Anda",
     features: ["Video Promosi", "Video Sosmed", "Motion Graphics", "Cinematic Edit"],
-    price: "Mulai Rp 50.000",
+    price: "Mulai Rp 15.000",
   },
   {
     id: "tugas",
