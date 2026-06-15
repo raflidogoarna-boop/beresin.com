@@ -9,7 +9,6 @@ interface Review {
   rating: string;
 }
 
-// SUDAH DIPERBAIKI: Mengembalikan ke 'export function HeroSection' sesuai aslinya
 export function HeroSection() {
   const [stats, setStats] = useState({
     totalProyek: 8,
@@ -31,11 +30,18 @@ export function HeroSection() {
     }
 
     const updateStats = (data: Review[]) => {
-      const totalFromDb = data.length
-      const puasFromDb = data.filter((r) => parseInt(r.rating) >= 4).length
-      const ratingAverage = (
-        data.reduce((acc, curr) => acc + parseInt(curr.rating), 0) / totalFromDb
-      ).toFixed(1)
+      // 1. Filter ulasan yang valid saja (harus berupa angka dan tidak boleh kosong)
+      const validReviews = data.filter((r) => r.rating && !isNaN(parseInt(r.rating)))
+      
+      const totalFromDb = validReviews.length
+      const puasFromDb = validReviews.filter((r) => parseInt(r.rating) >= 4).length
+      
+      // 2. Hitung rata-rata hanya dari ulasan yang valid biar anti NaN
+      let ratingAverage = "5.0"
+      if (totalFromDb > 0) {
+        const totalRatingScore = validReviews.reduce((acc, curr) => acc + parseInt(curr.rating), 0)
+        ratingAverage = (totalRatingScore / totalFromDb).toFixed(1)
+      }
 
       setStats({
         totalProyek: 8 + totalFromDb,
