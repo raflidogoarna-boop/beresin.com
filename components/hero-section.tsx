@@ -11,9 +11,9 @@ interface Review {
 
 export function HeroSection() {
   const [stats, setStats] = useState({
-    totalProyek: 8,
-    klienPuas: 5,
-    rataRating: "5.0"
+    totalProyek: 0, // Kita mulai dari 0 biar murni hitung dari Sheets
+    klienPuas: 0,   // Kita mulai dari 0 biar murni hitung dari Sheets
+    rataRating: "0.0"
   })
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export function HeroSection() {
       try {
         const res = await fetch("https://sheetdb.io/api/v1/5x9cioybby7bf")
         const data = await res.json()
-        if (Array.isArray(data) && data.length > 0) {
+        if (Array.isArray(data)) {
           updateStats(data)
         }
       } catch (e) {
@@ -30,22 +30,20 @@ export function HeroSection() {
     }
 
     const updateStats = (data: Review[]) => {
-      // 1. Filter ulasan yang valid saja (harus berupa angka dan tidak boleh kosong)
       const validReviews = data.filter((r) => r.rating && !isNaN(parseInt(r.rating)))
       
       const totalFromDb = validReviews.length
       const puasFromDb = validReviews.filter((r) => parseInt(r.rating) >= 4).length
       
-      // 2. Hitung rata-rata hanya dari ulasan yang valid biar anti NaN
-      let ratingAverage = "5.0"
+      let ratingAverage = "0.0"
       if (totalFromDb > 0) {
         const totalRatingScore = validReviews.reduce((acc, curr) => acc + parseInt(curr.rating), 0)
         ratingAverage = (totalRatingScore / totalFromDb).toFixed(1)
       }
 
       setStats({
-        totalProyek: 8 + totalFromDb,
-        klienPuas: 5 + puasFromDb,
+        totalProyek: totalFromDb, // Murni jumlah ulasan di Sheets kamu
+        klienPuas: puasFromDb,   // Murni jumlah ulasan bintang 4-5 di Sheets kamu
         rataRating: ratingAverage
       })
     }
