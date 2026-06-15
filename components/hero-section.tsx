@@ -1,10 +1,59 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { ArrowRight, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
+interface Review {
+  rating: string;
+}
+
+// SUDAH DIPERBAIKI: Mengembalikan ke 'export function HeroSection' sesuai aslinya
 export function HeroSection() {
+  const [stats, setStats] = useState({
+    totalProyek: 8,
+    klienPuas: 5,
+    rataRating: "5.0"
+  })
+
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      try {
+        const res = await fetch("https://sheetdb.io/api/v1/5x9cioybby7bf")
+        const data = await res.json()
+        if (Array.isArray(data) && data.length > 0) {
+          updateStats(data)
+        }
+      } catch (e) {
+        console.error("Gagal sinkronisasi data statistik:", e)
+      }
+    }
+
+    const updateStats = (data: Review[]) => {
+      const totalFromDb = data.length
+      const puasFromDb = data.filter((r) => parseInt(r.rating) >= 4).length
+      const ratingAverage = (
+        data.reduce((acc, curr) => acc + parseInt(curr.rating), 0) / totalFromDb
+      ).toFixed(1)
+
+      setStats({
+        totalProyek: 8 + totalFromDb,
+        klienPuas: 5 + puasFromDb,
+        rataRating: ratingAverage
+      })
+    }
+
+    fetchInitialData()
+
+    const handleUpdate = (e: any) => {
+      if (e.detail) updateStats(e.detail)
+    }
+
+    window.addEventListener("reviews-updated", handleUpdate)
+    return () => window.removeEventListener("reviews-updated", handleUpdate)
+  }, [])
+
   const handleScrollToSection = (sectionId: string) => {
     const element = document.querySelector(sectionId)
     if (element) {
@@ -58,17 +107,17 @@ export function HeroSection() {
 
             <div className="flex items-center gap-8 pt-4">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary">8+</div>
+                <div className="text-3xl font-bold text-primary">{stats.totalProyek}+</div>
                 <div className="text-sm text-muted-foreground">Proyek Selesai</div>
               </div>
               <div className="w-px h-12 bg-border" />
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary">5+</div>
+                <div className="text-3xl font-bold text-primary">{stats.klienPuas}+</div>
                 <div className="text-sm text-muted-foreground">Klien Puas</div>
               </div>
               <div className="w-px h-12 bg-border" />
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary">5★</div>
+                <div className="text-3xl font-bold text-primary">{stats.rataRating}★</div>
                 <div className="text-sm text-muted-foreground">Rating</div>
               </div>
             </div>
