@@ -9,7 +9,7 @@ import { CTASection } from "@/components/cta-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 import { FloatingWhatsApp } from "@/components/floating-whatsapp"
-
+import ReviewSection from "@/components/ReviewSection"
 export default function Home() {
   return (
     <main className="min-h-screen bg-background">
@@ -19,6 +19,7 @@ export default function Home() {
       <PortfolioSection />
       <AboutSection />
       <TestimonialsSection />
+      <ReviewSection />
       <FAQSection />
       <CTASection />
       <ContactSection />
